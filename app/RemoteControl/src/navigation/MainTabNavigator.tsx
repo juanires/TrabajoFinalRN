@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import FavoriteDeviceScreen from '../screens/FavoriteDeviceScreen';
 import HomeStackNavigator from './HomeStackNavigator';
+import FavoriteStackNavigator from './FavoriteStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,10 +34,11 @@ export default function TabNavigator() {
       />
 
       <Tab.Screen
-        name="FavoriteDevice"
-        component={FavoriteDeviceScreen}
+        name="FavoriteStack"
+        component={FavoriteStackNavigator}
         options={{
           tabBarLabel: 'Favorite',
+          popToTopOnBlur: true,
         //   tabBarShowLabel: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons 

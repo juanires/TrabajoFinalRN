@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '@/src/screens/HomeScreen';
 import ManageDeviceScreen from '@/src/screens/ManageDeviceScreen';
 import AddDeviceScreen from '@/src/screens/AddDeviceScreen';
+import AddSpecificDeviceScreen from '../screens/AddSpecificDeviceScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function HomeStackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="HomeScreen">
+    <Stack.Navigator>
 
       <Stack.Screen
         name="HomeScreen"
@@ -25,6 +26,10 @@ export default function HomeStackNavigator() {
         component={AddDeviceScreen}
       />
 
+       <Stack.Screen
+        name="AddSpecificDevice"
+        component={AddSpecificDeviceScreen}
+      />
     </Stack.Navigator>
   );
 }

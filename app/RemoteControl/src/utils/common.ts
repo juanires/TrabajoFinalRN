@@ -1,12 +1,16 @@
 
-
+enum DeviceType {
+  LIGHT = "Light",
+  SWITCH = "Switch",
+}
 type Device={
     id          : string;
-    type        : string;
+    device_type : DeviceType;
     name        : string;
     description : string;
     is_on       : boolean;
     is_favorite : boolean;
 };
 
-export {Device};
+
+export {Device, DeviceType};

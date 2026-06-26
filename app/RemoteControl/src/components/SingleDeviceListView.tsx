@@ -5,7 +5,7 @@
 //   onDelete: () => void;
 // };
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,17 @@ type Props = {
 };
 
 export default function SingleDeviceListView({device, onToggle, onPress,}: Props) {
+  const [isOn, setIsOn] = useState(device.is_on);
+
+  useEffect(() => {
+    setIsOn(device.is_on);
+  }, [device.is_on]);
+
+  const handleToggle = (value: boolean) => {
+    setIsOn(value);
+    onToggle(value);
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -39,13 +50,13 @@ export default function SingleDeviceListView({device, onToggle, onPress,}: Props
         </Text>
 
         <Text style={styles.deviceType}>
-          {device.type}
+          {device.device_type}
         </Text>
       </View>
 
       <Switch
-        value={device.is_on}
-        onValueChange={onToggle}
+        value={isOn}
+        onValueChange={handleToggle}
       />
     </TouchableOpacity>
   );

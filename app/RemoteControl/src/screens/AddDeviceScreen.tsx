@@ -1,20 +1,68 @@
-import { useState } from "react";
+import React from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Device } from "../utils/common";
-import { View , Text} from "react-native";
+import {View, Text, StyleSheet} from 'react-native';
+import DeviceTypeCard from '@/src/components/DeviceTypeCard';
+import { DeviceType } from '../utils/common';
 
-export default function AddDeviceScreen() {
-    const [device, setDevice] = useState<Device[]>([]);
+type Props = {
+  navigation: any;
+  route: any;
+};
 
-    return (
-    <SafeAreaView style= {{ flex: 1, backgroundColor: 'white', padding: 20 }}>
-        <View>
-            <Text>ESTA ES LA AddDeviceScreen</Text> 
+export default function AddDeviceScreen({navigation}: Props) {
 
-            {/* P2. Botonoes para agregar los dispositivos
-                -> SWITCH
-                -> LIGHT */}
-        </View>
+  return (
+    <SafeAreaView style={styles.container}>
+
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          Agregar dispositivo
+        </Text>
+      </View>
+
+      <View style={styles.content}>
+        <DeviceTypeCard
+            title= {DeviceType.LIGHT}
+            iconName="bulb-outline"
+            onPress={() => { 
+                navigation.navigate('AddSpecificDevice', {device_type: DeviceType.LIGHT} ); 
+                }
+            }
+        />
+
+        <DeviceTypeCard
+            title={DeviceType.SWITCH}
+            iconName="toggle-outline"
+            onPress={() => {
+                navigation.navigate('AddSpecificDevice', {device_type: DeviceType.SWITCH});
+                }
+            }
+        />
+
+      </View>
+
     </SafeAreaView>
-    );
+  );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
+
+  header: {
+    padding: 20,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
+  content: {
+    flex: 1,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

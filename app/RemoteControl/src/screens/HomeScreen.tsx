@@ -1,38 +1,31 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import SingleDeviceListView from '@/src/components/SingleDeviceListView';
-import { Device } from '@/src/utils/common';
-import { useNavigation } from '@react-navigation/native';
+import { Device, DeviceType } from '@/src/utils/common';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { getAllDevices, updateDevice } from '../database/local_storage';
 
 type Props = {
   navigation: any;
   route: any;
 };
 export default function HomeScreen({ navigation}:Props) {
-    // const navigation = useNavigation<any>();
-    // const devices: Device[] = [];
-  // TODO:
-  // Reemplazar por los dispositivos obtenidos desde Firebase
-  const devices: Device[] = [
-    {
-      id  : '1',
-      type: 'TV',
-      name: 'Smart TV',
-      description: 'Living',
-      is_on: true,
-      is_favorite: false,
-    },
-    {
-      id  : '2',
-      type: 'Light',
-      name: 'Lámpara',
-      description: 'Dormitorio',
-      is_on: false,
-      is_favorite: true,
-    },
-  ];
+  // const navigation = useNavigation<any>();
+  const [devices, setDevices] = useState<Device[]>([])
+ 
+    
+  const loadInitialInfo = async () =>{
+    setDevices(await getAllDevices());
+    console.log('Se carga valor inicial de devices HOME:', JSON.stringify(devices));
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadInitialInfo();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,24 +55,15 @@ export default function HomeScreen({ navigation}:Props) {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <SingleDeviceListView
-
                 device={item}
-
-                onToggle={(value: boolean) => {
-                console.log(`Este es el valor ${value}`)
-                  // TODO:
-                  // Cambiar estado del dispositivo
-                  // Actualizar Firebase o asyncStorage
-
-                }}
-
-                onPress={() => {
-                   navigation.navigate('ManageDevice');
-                  // TODO:
-                  // Navegar a ManageDeviceScreen
-
-                }}
-
+                onToggle={async (value: boolean) => {
+                  console.log(`Este es el valor ${value}`)
+                  await updateDevice({...item, is_on: value});
+                  await loadInitialInfo();  
+                  }
+                }
+                
+                onPress={() => {console.log(`Navegando con id de dispositivo ${item.id}`); navigation.navigate('ManageDevice', {deviceId: item.id});}}
               />
             )}
           />
@@ -91,12 +75,7 @@ export default function HomeScreen({ navigation}:Props) {
       {/* Botón Agregar */}
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => {
-
-          // TODO:
-          // Navegar a AddDeviceScreen
-
-        }}
+        onPress={() => {navigation.navigate('AddDevice');}}
       >
         <Ionicons
           name="add"
