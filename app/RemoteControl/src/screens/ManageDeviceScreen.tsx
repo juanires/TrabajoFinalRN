@@ -1,38 +1,31 @@
 import React, { useCallback, useState } from 'react';
-import {
-  View,
+import {View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Switch,
   Alert,
 } from 'react-native';
-
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import { Device, DeviceType } from '@/src/utils/common';
 import { deleteDevice, getDeviceById, updateDevice } from '../database/local_storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { common_styles } from '../styles/mainScreensStyles';
 
 type Props = {
   navigation: any;
   route: any;
 };
 
-export default function ManageDeviceScreen({
-  navigation,
-  route,
-}: Props) {
+export default function ManageDeviceScreen({navigation, route}: Props) {
+
   const [device, setDevice] = useState<Device>();
-  // const { device }: { device: Device } = route.params;
   const [isOn, setIsOn] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [name, setName] = useState('');
-  // const [icon, setIcon] = useState('');
 
- const fetchDevice = async () => {
+  const fetchDevice = async () => {
     const new_device = await getDeviceById(route.params.deviceId);
     if (new_device) {
       console.log('Hay dispositivo');
@@ -40,32 +33,31 @@ export default function ManageDeviceScreen({
       setIsOn(new_device.is_on);
       setIsFavorite(new_device.is_favorite);
       setName(new_device.name);
-      // setIcon(getDeviceIcon());
     }
-    // console.log('No Hay dispositivo');
-};
+  };
 
-useFocusEffect(
-  useCallback(() => {    
-    fetchDevice();
-  }, [])
-);
+  useFocusEffect(
+    useCallback(() => {    
+      fetchDevice();
+    }, [])
+  );
  
 
- const handleToggleSwitch = async (value: boolean) => {
-  if (!device) return;  // ← Guard clause: exit if device is undefined
-  // setIsOn(value);
-  const updatedDevice = { ...device, is_on: value};
-  const success = await updateDevice(updatedDevice);
+  const handleToggleSwitch = async (value: boolean) => {
+    if (!device) return;  // ← Guard clause: exit if device is undefined
+    
+    const updatedDevice = { ...device, is_on: value};
+    const success = await updateDevice(updatedDevice);
     if (success) {
       fetchDevice();  // Refresh the device state after updating
     } else {
       console.log('Error actualizando el estado de favorito');
     }
-};
+  };
 
   const handleToggleFavorite = async () => {
     if (!device) return;
+    
     const newFavorite = !device.is_favorite;
     const updatedDevice = { ...device, is_favorite: newFavorite };
     const success = await updateDevice(updatedDevice);
@@ -73,26 +65,39 @@ useFocusEffect(
       fetchDevice();  // Refresh the device state after updating
     } else {
       console.log('Error actualizando el estado de favorito');
-    }
-    
+    } 
   };
 
   const handleDelete = async () => {
-  if (!device) return;
-  const success = await deleteDevice(device.id);
-  if (success) {
-      fetchDevice();  // Refresh the device state after updating
-      navigation.popToTop();
-      Alert.alert("Dispositivo eliminado");
-      console.log('Eliminar dispositivo');
-  } 
-  else {
-      console.log('Error eliminando el dispositivo');
-  }    
+    if (!device) return;
+    Alert.alert('Eliminar dispositivo', '¿Está seguro que desea eliminar este dispositivo?',
+      [
+        {// Primera opcion: Cancelar
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: () => {}, // No hace nada
+        },
+        { //Segunda opcion: Ok . Se confirma la eliminacion del dispositivo
+          text: 'OK',
+          style: 'destructive',
+          onPress: async () => {
+            const success = await deleteDevice(device.id);
+            if (success) {
+              navigation.popToTop();
+              console.log('Eliminar dispositivo');
+            } else {
+              Alert.alert('Error eliminando el dispositivo');
+              console.log('Error eliminando el dispositivo');
+            }
+          },
+        },
+      ],
+    );
   };
 
   const getDeviceIcon = ()=> {
-     if (!device) return 'help';
+    if (!device) return 'help';
+    
     return device.device_type === DeviceType.LIGHT
       ? 'lightbulb-outline'
       : 'power-plug-outline';
@@ -108,7 +113,8 @@ useFocusEffect(
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={common_styles.container}>
+      
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.deviceName}>
@@ -127,12 +133,7 @@ useFocusEffect(
           <Switch
             value={isOn}
             onValueChange={(value) => {
-
-              // TODO:
-              // Actualizar AsyncStorage
-
               handleToggleSwitch(value);
-
             }}
             trackColor={{
               false: '#D1D1D6',
@@ -144,7 +145,6 @@ useFocusEffect(
         <Text style={styles.statusText}>
           {isOn ? 'ON' : 'OFF'}
         </Text>
-
       </View>
 
       {/* Acciones */}
@@ -165,17 +165,11 @@ useFocusEffect(
           />
         </TouchableOpacity>
       </View>
-
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
 
   header: {
     flexDirection: 'row',

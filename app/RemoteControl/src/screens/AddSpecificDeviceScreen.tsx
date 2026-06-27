@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { DeviceType } from '../utils/common';
 import { addDevice } from '../database/local_storage';
+import { common_styles } from '../styles/mainScreensStyles';
 
 type Props = {
   navigation: any;
@@ -28,20 +29,12 @@ export default function AddSpecificDeviceScreen({navigation, route}: Props) {
     console.log(newDevice);
     const success = await addDevice(newDevice);
     success? Alert.alert('Hecho!', 'Dispositivo creado con exito') : Alert.alert('Error!', 'No se pudo crear el dispositivo');
-    
     navigation.popToTop();
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={common_styles.container}>
       <View style={styles.header}>
-        {/* <TouchableOpacity onPress={() => navigation.goBack()} >
-            <Ionicons
-                name="arrow-back"
-                size={24}
-            />
-        </TouchableOpacity> */}
-
         <Text style={styles.headerTitle}>
           Agregar {device_type}
         </Text>
@@ -54,15 +47,13 @@ export default function AddSpecificDeviceScreen({navigation, route}: Props) {
           }
           size={26}
         />
-
       </View>
 
       <View style={styles.content}>
-
         <Text style={styles.label}>
           Nombre
         </Text>
-
+        
         <TextInput
           style={styles.input}
           value={name}
@@ -89,18 +80,12 @@ export default function AddSpecificDeviceScreen({navigation, route}: Props) {
             DONE
           </Text>
         </TouchableOpacity>
-
       </View>
-
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
 
   header: {
     flexDirection: 'row',

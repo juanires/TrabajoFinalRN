@@ -1,8 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from '../screens/HomeScreen';
-import FavoriteDeviceScreen from '../screens/FavoriteDeviceScreen';
 import HomeStackNavigator from './HomeStackNavigator';
 import FavoriteStackNavigator from './FavoriteStackNavigator';
 
@@ -39,7 +37,6 @@ export default function TabNavigator() {
         options={{
           tabBarLabel: 'Favorite',
           popToTopOnBlur: true,
-        //   tabBarShowLabel: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons 
                 name={focused ? "star" : "star-outline"}

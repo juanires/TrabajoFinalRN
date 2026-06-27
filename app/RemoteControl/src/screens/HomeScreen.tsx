@@ -3,19 +3,18 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import SingleDeviceListView from '@/src/components/SingleDeviceListView';
-import { Device, DeviceType } from '@/src/utils/common';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Device } from '@/src/utils/common';
+import { useFocusEffect, } from '@react-navigation/native';
 import { getAllDevices, updateDevice } from '../database/local_storage';
+import { common_styles, main_styles } from '../styles/mainScreensStyles';
 
 type Props = {
   navigation: any;
   route: any;
 };
 export default function HomeScreen({ navigation}:Props) {
-  // const navigation = useNavigation<any>();
   const [devices, setDevices] = useState<Device[]>([])
- 
-    
+     
   const loadInitialInfo = async () =>{
     setDevices(await getAllDevices());
     console.log('Se carga valor inicial de devices HOME:', JSON.stringify(devices));
@@ -28,28 +27,25 @@ export default function HomeScreen({ navigation}:Props) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>
+    <SafeAreaView style={common_styles.container}>
+      
+      {/* Titulo */}
+      <View style={main_styles.header}>
+        <Text style={main_styles.headerTitle}>
           Device Handler App
         </Text>
       </View>
 
       {/* Contenido */}
-      <View style={styles.content}>
-
-        {devices.length === 0 ? (
-
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>
+      <View style={main_styles.content}>
+        {devices.length === 0 ? ( //Si NO hay dispositivos en la base de datos
+          <View style={main_styles.emptyContainer}>
+            <Text style={main_styles.emptyText}>
               No hay dispositivos
             </Text>
           </View>
-
-        ) : (
-
+        ) : 
+        (//Si HAY dispositivos en la base de datos
           <FlatList
             data={devices}
             keyExtractor={(item) => item.id}
@@ -63,18 +59,20 @@ export default function HomeScreen({ navigation}:Props) {
                   }
                 }
                 
-                onPress={() => {console.log(`Navegando con id de dispositivo ${item.id}`); navigation.navigate('ManageDevice', {deviceId: item.id});}}
+                onPress={() => {
+                  console.log(`Navegando con id de dispositivo ${item.id}`); 
+                  navigation.navigate('ManageDevice', {deviceId: item.id});
+                  }
+                }
               />
             )}
           />
-
         )}
-
       </View>
 
       {/* Botón Agregar */}
       <TouchableOpacity
-        style={styles.fab}
+        style={main_styles.fab}
         onPress={() => {navigation.navigate('AddDevice');}}
       >
         <Ionicons
@@ -83,60 +81,6 @@ export default function HomeScreen({ navigation}:Props) {
           color="white"
         />
       </TouchableOpacity>
-
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  header: {
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
-
-  content: {
-    flex: 1,
-  },
-
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  emptyText: {
-    fontSize: 32,
-    color: '#666',
-    textAlign: 'center',
-  },
-
-  fab: {
-    position: 'absolute',
-
-    right: 20,
-    bottom: 20,
-
-    width: 60,
-    height: 60,
-
-    borderRadius: 30,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    backgroundColor: '#007AFF',
-  },
-});

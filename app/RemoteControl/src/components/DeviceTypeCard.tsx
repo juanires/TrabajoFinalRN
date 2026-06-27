@@ -5,9 +5,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-
 import { Ionicons } from '@expo/vector-icons';
 
+// Componente que muestra una tarjeta con un icono y un título para representar el tipo de dispositivo.
 type Props = {
   title: string;
   iconName: keyof typeof Ionicons.glyphMap;

@@ -1,50 +1,223 @@
-# Welcome to your Expo app 👋
+````md
+# RemoteControl
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación móvil desarrollada con **React Native**, **Expo** y **TypeScript** para la administración de dispositivos inteligentes.
 
-## Get started
+La aplicación permite registrar dispositivos, administrarlos y controlar su estado mediante una interfaz sencilla e intuitiva. Toda la información se almacena localmente utilizando **AsyncStorage**, permitiendo conservar los datos entre ejecuciones de la aplicación.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Características
 
-2. Start the app
+La aplicación permite:
 
-   ```bash
-   npx expo start
-   ```
+- Agregar nuevos dispositivos.
+- Editar dispositivos existentes.
+- Eliminar dispositivos.
+- Encender y apagar dispositivos.
+- Marcar dispositivos como favoritos.
+- Visualizar únicamente los dispositivos favoritos.
+- Persistencia local mediante AsyncStorage.
+- Navegación mediante Bottom Tabs y Native Stack.
+- Interfaz desarrollada completamente con componentes nativos de React Native.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Conceptos aplicados
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Durante el desarrollo del proyecto se aplicaron los siguientes conceptos:
 
-## Get a fresh project
+- React Native con Expo
+- TypeScript
+- Componentes funcionales
+- Hooks
+  - useState
+  - useEffect
+  - useCallback
+  - useFocusEffect
+- React Navigation
+- AsyncStorage
+- Componentización
+- Props
+- Manejo de estado
+- FlatList
+- Formularios
+- Arquitectura modular
+- Separación de responsabilidades
 
-When you're ready, run:
+---
+
+## Tecnologías utilizadas
+
+### Frameworks
+
+- React Native 0.81
+- Expo SDK 54
+
+### Lenguajes
+
+- TypeScript
+- JavaScript
+
+### Navegación
+
+- React Navigation
+  - Native Stack Navigator
+  - Bottom Tab Navigator
+
+### Persistencia de datos
+
+- AsyncStorage
+
+### Componentes UI
+
+- React Native Paper
+- Expo Vector Icons
+
+### Otras librerías utilizadas
+
+- Firebase *(preparado para futuras integraciones)*
+- React Native Gesture Handler
+- React Native Safe Area Context
+
+---
+
+## Requisitos
+
+Antes de ejecutar el proyecto es necesario tener instalado:
+
+- Node.js
+- npm
+- Git
+
+Y alguna de las siguientes opciones para ejecutar la aplicación:
+
+- Expo Go
+- Android Studio
+
+---
+
+## Instalación
+
+Clonar el repositorio:
 
 ```bash
-npm run reset-project
+git clone https://github.com/juanires/TrabajoFinalRN.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Ingresar al proyecto:
 
-## Learn more
+```bash
+cd TrabajoFinalRN
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Instalar las dependencias:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## Ejecución
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Iniciar el servidor de desarrollo:
+
+```bash
+npx expo start
+```
+
+También puede ejecutarse mediante:
+
+Android
+
+```bash
+npm run android
+```
+
+iOS
+
+```bash
+npm run ios
+```
+
+Web
+
+```bash
+npm run web
+```
+
+---
+
+## Estructura del proyecto
+
+```
+TrabajoFinalRN
+│
+├── app/
+│
+├── assets/
+│
+├── components/
+│
+├── navigation/
+│
+├── screens/
+│
+├── storage/
+│
+├── styles/
+│
+├── types/
+│
+├── App.tsx
+│
+├── package.json
+│
+└── README.md
+```
+
+La organización del proyecto sigue una arquitectura modular que facilita el mantenimiento y la reutilización del código.
+
+---
+
+## Arquitectura
+
+El proyecto se encuentra dividido en diferentes módulos con responsabilidades específicas.
+
+| Carpeta | Responsabilidad |
+|----------|-----------------|
+| **screens** | Pantallas principales de la aplicación |
+| **components** | Componentes reutilizables |
+| **navigation** | Configuración de la navegación |
+| **storage** | Persistencia mediante AsyncStorage |
+| **types** | Interfaces y tipos TypeScript |
+| **styles** | Hojas de estilos |
+| **assets** | Recursos gráficos e imágenes |
+
+Esta organización permite mantener el código desacoplado y facilita la incorporación de nuevas funcionalidades.
+
+---
+
+## Decisiones de diseño
+
+Aunque el proyecto fue creado utilizando una plantilla de **Expo**, cuya entrada principal es `expo-router/entry`, la navegación de la aplicación fue implementada completamente utilizando **React Navigation**.
+
+Esta decisión fue tomada con fines educativos para comprender en profundidad el funcionamiento de la navegación en React Native antes de utilizar soluciones basadas en archivos como Expo Router.
+
+Durante el desarrollo se implementaron manualmente conceptos como:
+
+- Native Stack Navigation.
+- Bottom Tab Navigation.
+- Navegación entre pantallas.
+- Paso de parámetros.
+- Gestión del ciclo de vida mediante `useFocusEffect`.
+- Organización de múltiples navegadores.
+
+Expo Router se mantiene únicamente como punto de entrada del proyecto generado por Expo, mientras que toda la lógica de navegación se implementó utilizando React Navigation.
+
+
+Repositorio del proyecto:
+
+https://github.com/juanires/TrabajoFinalRN
+````

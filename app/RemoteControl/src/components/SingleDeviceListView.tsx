@@ -1,9 +1,3 @@
-// import { Device } from "@/src/utils/common";
-
-// type single_device_view_Prop = {
-//   device: Device;
-//   onDelete: () => void;
-// };
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -13,15 +7,16 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
-
 import { Device } from '@/src/utils/common';
+
+// Componente que muestra la información de un dispositivo individual en una lista,
+// incluyendo nombre, descripción, tipo y un interruptor para activar o desactivar.
 
 type Props = {
   device: Device;
   onToggle: (value: boolean) => void;
   onPress?: () => void;
 };
-
 export default function SingleDeviceListView({device, onToggle, onPress,}: Props) {
   const [isOn, setIsOn] = useState(device.is_on);
 
