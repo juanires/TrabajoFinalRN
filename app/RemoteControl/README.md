@@ -1,11 +1,10 @@
-````md
+
 # RemoteControl
 
 Aplicación móvil desarrollada con **React Native**, **Expo** y **TypeScript** para la administración de dispositivos inteligentes.
 
-La aplicación permite registrar dispositivos, administrarlos y controlar su estado mediante una interfaz sencilla e intuitiva. Toda la información se almacena localmente utilizando **AsyncStorage**, permitiendo conservar los datos entre ejecuciones de la aplicación.
-
----
+La aplicación permite registrar dispositivos, administrarlos y controlar su estado mediante una interfaz sencilla e intuitiva. 
+Toda la información se almacena localmente utilizando **AsyncStorage**, permitiendo conservar los datos entre ejecuciones de la aplicación.
 
 ## Características
 
@@ -19,9 +18,7 @@ La aplicación permite:
 - Visualizar únicamente los dispositivos favoritos.
 - Persistencia local mediante AsyncStorage.
 - Navegación mediante Bottom Tabs y Native Stack.
-- Interfaz desarrollada completamente con componentes nativos de React Native.
 
----
 
 ## Conceptos aplicados
 
@@ -36,7 +33,7 @@ Durante el desarrollo del proyecto se aplicaron los siguientes conceptos:
   - useCallback
   - useFocusEffect
 - React Navigation
-- AsyncStorage
+- Opraciones CRUD con AsyncStorage
 - Componentización
 - Props
 - Manejo de estado
@@ -45,42 +42,21 @@ Durante el desarrollo del proyecto se aplicaron los siguientes conceptos:
 - Arquitectura modular
 - Separación de responsabilidades
 
----
+## Entorno de desarrollo
 
-## Tecnologías utilizadas
+El proyecto fue desarrollado y probado utilizando el siguiente entorno:
 
-### Frameworks
+| Herramienta | Versión |
+|-------------|----------|
+| Node.js | v24.16.0 |
+| npm | 11.13.0 |
+| npx | 11.13.0 |
+| Expo CLI | 54.0.25 |
+| Expo SDK | 54 |
+| React Native | 0.81.5 |
+| React | 19.1.0 |
+| TypeScript | 5.9.2 |
 
-- React Native 0.81
-- Expo SDK 54
-
-### Lenguajes
-
-- TypeScript
-- JavaScript
-
-### Navegación
-
-- React Navigation
-  - Native Stack Navigator
-  - Bottom Tab Navigator
-
-### Persistencia de datos
-
-- AsyncStorage
-
-### Componentes UI
-
-- React Native Paper
-- Expo Vector Icons
-
-### Otras librerías utilizadas
-
-- Firebase *(preparado para futuras integraciones)*
-- React Native Gesture Handler
-- React Native Safe Area Context
-
----
 
 ## Requisitos
 
@@ -94,8 +70,6 @@ Y alguna de las siguientes opciones para ejecutar la aplicación:
 
 - Expo Go
 - Android Studio
-
----
 
 ## Instalación
 
@@ -117,7 +91,6 @@ Instalar las dependencias:
 npm install
 ```
 
----
 
 ## Ejecución
 
@@ -147,7 +120,6 @@ Web
 npm run web
 ```
 
----
 
 ## Estructura del proyecto
 
@@ -179,8 +151,6 @@ TrabajoFinalRN
 
 La organización del proyecto sigue una arquitectura modular que facilita el mantenimiento y la reutilización del código.
 
----
-
 ## Arquitectura
 
 El proyecto se encuentra dividido en diferentes módulos con responsabilidades específicas.
@@ -197,13 +167,12 @@ El proyecto se encuentra dividido en diferentes módulos con responsabilidades e
 
 Esta organización permite mantener el código desacoplado y facilita la incorporación de nuevas funcionalidades.
 
----
 
 ## Decisiones de diseño
 
 Aunque el proyecto fue creado utilizando una plantilla de **Expo**, cuya entrada principal es `expo-router/entry`, la navegación de la aplicación fue implementada completamente utilizando **React Navigation**.
 
-Esta decisión fue tomada con fines educativos para comprender en profundidad el funcionamiento de la navegación en React Native antes de utilizar soluciones basadas en archivos como Expo Router.
+Esta decisión fue tomada para poner en practica lo visto en clases y conocer el funcionamiento de la navegación en React Native antes de utilizar soluciones basadas en archivos como Expo Router.
 
 Durante el desarrollo se implementaron manualmente conceptos como:
 
@@ -216,8 +185,15 @@ Durante el desarrollo se implementaron manualmente conceptos como:
 
 Expo Router se mantiene únicamente como punto de entrada del proyecto generado por Expo, mientras que toda la lógica de navegación se implementó utilizando React Navigation.
 
-
 Repositorio del proyecto:
 
 https://github.com/juanires/TrabajoFinalRN
-````
+
+## Notas finales
+Este proyecto fue desarrollado como parte del proceso de aprendizaje de React Native. 
+Tanto el lenguaje como las tecnologías utilizadas fueron aprendidas desde cero a lo largo del cursado, aplicando los conocimientos adquiridos en cada clase para construir la aplicación de manera incremental.
+Eexisten oportunidades de mejora desde el punto de vista de la arquitectura y la reutilización de código. En algunos sectores podrían extraerse componentes adicionales para reducir la duplicación y mejorar la mantenibilidad, 
+pero priorizó completar todas las funcionalidades requeridas y consolidar los conceptos aprendidos durante el desarrollo.
+
+Gracias Javier!!
+
